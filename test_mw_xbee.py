@@ -9,10 +9,17 @@ rc=[0,0,0,0]
 print "Basliyor"
 while True:
     board.getData(MultiWii.ATTITUDE)
-    altitude[0]=round(float(board.attitude['angx']),3)
-    altitude[1]=round(float(board.attitude['angy']),3)
-    altitude[2]=round(float(board.attitude['heading']),3)
+    board.getData(MultiWii.RC)
+    
+    altitude[0]=float(board.attitude['angx'])
+    altitude[1]=float(board.attitude['angy'])
+    altitude[2]=float(board.attitude['heading'])
     altitude[3]=round(float(board.attitude['elapsed']),3)
+    rc[0]=int(board.rcChannels['roll'])
+    rc[1]=int(board.rcChannels['pitch'])
+    rc[2]=int(board.rcChannels['yaw'])
+    rc[3]=int(board.rcChannels['throttle'])
+    rc[4]=int(board.rcChannels['elapsed'])
     xb.reportMW(altitude,PID,rc)
     print altitude
 
