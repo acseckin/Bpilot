@@ -50,6 +50,7 @@ class MultiWii:
     def __init__(self, serPort):
 
         """Global variables of data"""
+        self.PIDcoef = {'rp':0,'ri':0,'rd':0,'pp':0,'pi':0,'pd':0,'yp':0,'yi':0,'yd':0}
         self.rcChannels = {'roll':0,'pitch':0,'yaw':0,'throttle':0,'elapsed':0,'timestamp':0}
         self.rawIMU = {'ax':0,'ay':0,'az':0,'gx':0,'gy':0,'gz':0,'mx':0,'my':0,'mz':0,'elapsed':0,'timestamp':0}
         self.motor = {'m1':0,'m2':0,'m3':0,'m4':0,'elapsed':0,'timestamp':0}
@@ -178,10 +179,6 @@ class MultiWii:
             time.sleep(0.05)
             timer = timer + (time.time() - start)
             start =  time.time()
-    def getPID(self):
-        rv=self.getData(self.PID)
-        if rv!=None and len(rv)>0:
-            print rv
     """
         all coefficients range must be [0-256] so there is a scaling
         P=Preal*10        Preal ==>[0-20]
@@ -189,7 +186,6 @@ class MultiWii:
         D=Dreal           Dreal ==> [0-100]
         
         after this scaling data must be prepared like this:
-        
         d1=Proll+256*Iroll
         d2=Droll+256*Ppitch
         d3=Ipitch+256*Dpitch
@@ -199,27 +195,12 @@ class MultiWii:
         ....
         data[d1,d2, d3,d4,d5, .....]
         Each of these datas are range from 0 to 65792
-        
-        after data has been ready we can send it to mw
-        but send command gives this error. I think this 
-        
-        Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/usr/local/lib/python2.7/dist-packages/spyder/utils/site/sitecustomize.py", line 866, in runfile
-    execfile(filename, namespace)
-  File "/usr/local/lib/python2.7/dist-packages/spyder/utils/site/sitecustomize.py", line 94, in execfile
-    builtins.execfile(filename, *where)
-  File "/home/acs/Documents/python_projects/PHD/acs_swarmpilot/mw/test_PID_tune.py", line 21, in <module>
-    board.setPID([int(i),0,0,0,0,0,0,0,0,0,0,0,0,0,0])
-  File "pyMultiwii.py", line 208, in setPID
-    self.sendCMD(30,MultiWii.SET_PID,data)
-  File "pyMultiwii.py", line 94, in sendCMD
-    for i in struct.pack('<2B%dh' % len(data), *total_data[3:len(total_data)]):
-struct.error: short format requires SHRT_MIN <= number <= SHRT_MAX
-
-how can I fix this?
-
     """
+    def getPID(self):
+        rv=self.getData(self.PID)
+        if rv!=None and len(rv)>0:
+            print rv
+
     def setPID(self,pd):
         nd=[]
         for i in np.arange(1,len(pd),2):
@@ -297,7 +278,15 @@ how can I fix this?
                     for p in [0,3,6,9]:
                         dataPID[p]=dataPID[p]/10.0
                         dataPID[p+1]=dataPID[p+1]/1000.0
-                    print dataPID
+                    self.PIDcoef['rp']= dataPID=[0]
+                    self.PIDcoef['ri']= dataPID=[1]
+                    self.PIDcoef['rd']= dataPID=[2]
+                    self.PIDcoef['pp']= dataPID=[3]
+                    self.PIDcoef['pi']= dataPID=[4]
+                    self.PIDcoef['pd']= dataPID=[5]
+                    self.PIDcoef['yp']= dataPID=[6]
+                    self.PIDcoef['yi']= dataPID=[7]
+                    self.PIDcoef['yd']= dataPID=[8]
                 return dataPID
             else:
                 return None
