@@ -12,5 +12,5 @@ import time
 
 board = MultiWii("/dev/ttyO1")
 while True:
-  board.getData(MultiWii.ATITUDE)
+  board.getData(MultiWii.ATTITUDE)
   print board.attitude
