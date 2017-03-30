@@ -54,9 +54,9 @@ class xbee():
         alt=str(alttitude)
         pid=str(PID)
         rc=str(rcChannels)
-        outstr="MW:"+alt+":"+pid+":"+rc+"\n"
+        outstr="MW"+alt+":"+pid+":"+rc+":\n"
         outstr=outstr.replace("[",":")
-        outstr=outstr.replace("]",":")
+        outstr=outstr.replace("]","")
         outstr=outstr.replace(",",":")
         return self.write(outstr)
     def reportIMU(self,x,y,z,h):
