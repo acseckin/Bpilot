@@ -20,5 +20,3 @@ while True:
     rc[2]=int(board.rcChannels['yaw'])
     rc[3]=int(board.rcChannels['throttle'])
     xb.reportMW(altitude,PID,rc)
-    print altitude
-
