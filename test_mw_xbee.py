@@ -19,7 +19,6 @@ while True:
     rc[1]=int(board.rcChannels['pitch'])
     rc[2]=int(board.rcChannels['yaw'])
     rc[3]=int(board.rcChannels['throttle'])
-    rc[4]=int(board.rcChannels['elapsed'])
     xb.reportMW(altitude,PID,rc)
     print altitude
 
