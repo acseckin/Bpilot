@@ -62,6 +62,7 @@ class xbee():
         outstr=outstr.replace("[","")
         outstr=outstr.replace("]","")
         outstr=outstr.replace(",",":")
+        print outstr
         return self.write(outstr)
     def reportIMU(self,x,y,z,h):
         x=round(float(x),3)
