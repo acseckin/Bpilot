@@ -282,7 +282,7 @@ class MultiWii:
                     self.PIDcoef['ri']= dataPID=[1]
                     self.PIDcoef['rd']= dataPID=[2]
                     self.PIDcoef['pp']= dataPID=[3]
-                    self.PIDcoef['pi']= 23#dataPID=[4]
+                    self.PIDcoef['pi']= dataPID=[4]
                     self.PIDcoef['pd']= dataPID=[5]
                     self.PIDcoef['yp']= dataPID=[6]
                     self.PIDcoef['yi']= dataPID=[7]
