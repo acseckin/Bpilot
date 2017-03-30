@@ -51,6 +51,10 @@ class xbee():
         except ValueError:
                 return [0, ValueError]
     def reportMW(self,alttitude,PID,rcChannels):
+        altitude[0]= int(altitude[0]*10)
+        altitude[1]= int(altitude[1]*10)
+        altitude[2]= int(altitude[2]*10)
+        altitude[3]= int(altitude[3]*1000)
         alt=str(alttitude)
         pid=str(PID)
         rc=str(rcChannels)
