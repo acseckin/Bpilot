@@ -13,13 +13,4 @@ import time
 board = MultiWii("/dev/ttyO1")
 while True:
   board.getData(MultiWii.ATITUDE)
-            he[0]=float(board.altitude['EstAlt'])
-            he=np.roll(he, 1)
-            base=np.mean(he)
-            bvar=np.var(be)
-        he=np.zeros(500)
-        print base
-        time.sleep(5)
-        while True:
-            board.getData(MultiWii.ATTITUDE)
-            print board.attitude 
+  print board.attitude
