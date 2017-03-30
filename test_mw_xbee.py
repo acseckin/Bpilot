@@ -9,7 +9,7 @@ xb=acsxbee.xbee()
 altitude=[0,0,0,0]
 PID=[0,0,0,0,0,0,0,0,0]
 rc=[0,0,0,0]
-
+print "Basliyor"
 try:
     while True:
         board.getData(MultiWii.ATTITUDE)
