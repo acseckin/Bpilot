@@ -10,6 +10,7 @@ print "Basliyor"
 while True:
     board.getData(MultiWii.ATTITUDE)
     board.getData(MultiWii.RC)
+    board.getData(MultiWii.PID)
     
     altitude[0]=float(board.attitude['angx'])
     altitude[1]=float(board.attitude['angy'])
