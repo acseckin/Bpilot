@@ -14,4 +14,5 @@ while True:
     altitude[2]=round(float(board.attitude['heading']),3)
     altitude[3]=round(float(board.attitude['elapsed']),3)
     xb.reportMW(altitude,PID,rc)
+    print altitude
 
