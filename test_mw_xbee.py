@@ -1,4 +1,4 @@
-from pyMultiwii import MultiWii
+from mw import MultiWii
 import acsxbee
 
 board = MultiWii("/dev/ttyO1")
