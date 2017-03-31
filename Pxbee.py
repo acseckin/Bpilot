@@ -1,6 +1,9 @@
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-@author: acs
+Created on Fri Mar 31 21:07:35 2017
+
+@author: acseckin
 """
 import serial
 import Adafruit_BBIO.UART as UART
