@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 
-
 import serial, time, struct
 import numpy as np
 
-
 class MultiWii:
 
-    """Multiwii Serial Protocol message ID"""
-    """ notice: just attitude, rc channels and raw imu, set raw rc are implemented at the moment """
     IDENT = 100
     STATUS = 101
     RAW_IMU = 102
@@ -45,8 +41,6 @@ class MultiWii:
     DEBUG = 254
     EEPROM_WRITE=250
 
-
-    """Class initialization"""
     def __init__(self, serPort):
 
         """Global variables of data"""
@@ -196,10 +190,6 @@ class MultiWii:
         data[d1,d2, d3,d4,d5, .....]
         Each of these datas are range from 0 to 65792
     """
-    def getPID(self):
-        rv=self.getData(self.PID)
-        if rv!=None and len(rv)>0:
-            print rv
 
     def setPID(self,pd):
         nd=[]
@@ -287,12 +277,13 @@ class MultiWii:
                     self.PIDcoef['yp']= dataPID=[6]
                     self.PIDcoef['yi']= dataPID=[7]
                     self.PIDcoef['yd']= dataPID=[8]
-                return dataPID
+                return self.PIDcoef
             else:
                 return None
         except Exception, error:
             #print error
             pass
+    # if you read data inversely
     def inverseParseData(self):
         try:
             while True:
@@ -318,9 +309,6 @@ class MultiWii:
                 print ord(t),
             print "]"
 
-
-            
-                
             self.ser.flushInput()
             self.ser.flushOutput()
         except Exception, error:
