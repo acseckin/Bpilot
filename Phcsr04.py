@@ -1,7 +1,7 @@
 import Adafruit_BBIO.GPIO as GPIO
 import time
 
-class gps():
+class ultrasonic():
     def __init__(self,trig ="P8_10", echo="P8_8" ,temperature=28.0):
         self.trig=trig
         self.echo=echo
