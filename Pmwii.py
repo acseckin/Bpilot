@@ -41,7 +41,7 @@ class MultiWii:
     DEBUG = 254
     EEPROM_WRITE=250
 
-    def __init__(self, serPort):
+    def __init__(self, serPort="/dev/ttyO1"):
 
         """Global variables of data"""
         self.PIDcoef = {'rp':0,'ri':0,'rd':0,'pp':0,'pi':0,'pd':0,'yp':0,'yi':0,'yd':0}
@@ -199,7 +199,16 @@ class MultiWii:
         print "PID sending:",data
         self.sendCMD(30,MultiWii.SET_PID,data)
         self.sendCMD(0,MultiWii.EEPROM_WRITE,[])
-
+    
+    def getAttitude(self):
+        return self.getData(MultiWii.ATTITUDE)
+    def getPID(self):
+        return self.getData(MultiWii.PID)
+    def getAltitude(self):
+        return self.getData(MultiWii.ALTITUDE)
+    def getRC(self):
+        return self.getData(MultiWii.RC)
+        
     def getData(self, cmd):
         try:
             start = time.time()

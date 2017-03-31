@@ -50,61 +50,47 @@ class xbee():
                 return [1, send]
         except ValueError:
                 return [0, ValueError]
-    def reportMW(self,alttitude,PID,rcChannels):
-        alttitude[0]= int(alttitude[0]*10)
-        alttitude[1]= int(alttitude[1]*10)
-        alttitude[2]= int(alttitude[2]*10)
-        alttitude[3]= int(alttitude[3]*1000)
-        alt=str(alttitude)
-        pid=str(PID)
-        rc=str(rcChannels)
-        outstr="MW:"+alt+":"+pid+":"+rc+":\n"
+    def sendMWii(self,attitude,height):
+        attitude[0]= int(attitude[0]*10)
+        attitude[1]= int(attitude[1]*10)
+        attitude[2]= int(attitude[2]*10)
+        attitude[3]= int(attitude[3]*1000)
+        att=str(attitude)
+        height=str(int(height))
+        outstr="$MW:"+att+":"+height+":\n"
         outstr=outstr.replace("[","")
         outstr=outstr.replace("]","")
         outstr=outstr.replace(",",":")
-        print outstr
         return self.write(outstr)
-    def reportIMU(self,x,y,z,h):
-        x=round(float(x),3)
-        y=round(float(y),3)
-        z=round(float(z),3)
-        h=round(float(h),3)
-        outstr="$I:"+str(x)+":"+str(y)+":"+str(z)+":"+str(h)+":\n"
+
+    def sendPID(self,PID):
+        PID=str(PID)
+        outstr="$RC:"+PID+":\n"
+        outstr=outstr.replace("[","")
+        outstr=outstr.replace("]","")
+        outstr=outstr.replace(",",":")
         return self.write(outstr)
-    def reportTAR(self):
-        outstr="$D:"+str(self.dx)+":"+str(self.dy)+":"+str(self.dz)+":"+str(self.dh)+":\n"
+        
+    
+    def sendRC(self,rcChannels):
+        rcChannels=str(rcChannels)
+        outstr="$RC:"+rcChannels+":\n"
+        outstr=outstr.replace("[","")
+        outstr=outstr.replace("]","")
+        outstr=outstr.replace(",",":")
         return self.write(outstr)
-    def reportALT(self,bp,kbp,hc,dh):
-        bp=round(float(bp),2)
-        kbp=round(float(kbp),2)
-        hc=round(float(hc),2)
-        dh=round(float(dh),2)
-        outstr="$A:"+str(bp)+":"+str(kbp)+":"+str(hc)+":"+str(dh)+":\n"
+    
+    def sendGPS(self,latitude,longitute):
+        longitute=str(round(longitute,3))
+        latitude=str(round(latitude,3))
+        outstr="$RC:"+longitute+":"+latitude+":\n"
+        outstr=outstr.replace("[","")
+        outstr=outstr.replace("]","")
+        outstr=outstr.replace(",",":")
         return self.write(outstr)
-    def reportPWM(self,p1,p2,p3,p4):
-        p1=round(float(p1),2)
-        p2=round(float(p2),2)
-        p3=round(float(p3),2)
-        p4=round(float(p4),2)
-        outstr="$M:"+str(p1)+":"+str(p2)+":"+str(p3)+":"+str(p4)+":\n"
-        return self.write(outstr)
-    def reportPID_x(self):
-        outstr="$CX:"+str(self.xkp)+":"+str(self.xki)+":"+str(self.xkd)+":\n"
-        return self.write(outstr)
-    def reportPID_y(self):
-        outstr="$CY:"+str(self.ykp)+":"+str(self.yki)+":"+str(self.ykd)+":\n"
-        return self.write(outstr)
-    def reportPID_z(self):
-        outstr="$CZ:"+str(self.zkp)+":"+str(self.zki)+":"+str(self.zkd)+":\n"
-        return self.write(outstr)
-    def reportPID_h(self):
-        outstr="$CH:"+str(self.hkp)+":"+str(self.hki)+":"+str(self.hkd)+":\n"
-        return self.write(outstr)
-    def reportPID(self):
-        self.reportPID_x()
-        self.reportPID_y()
-        self.reportPID_z()
-        self.reportPID_h()
+    
+  
+   
     def readDesired(self):
         try:
             rv=self.read()
@@ -153,28 +139,5 @@ class xbee():
                     print (xbeein)
         except ValueError:
             print ValueError
-    def setPID_x(self,xkp,xki,xkd):
-        self.xkp=xkp
-        self.xki=xki
-        self.xkd=xkd
-    def setPID_y(self,ykp,yki,ykd):
-        self.ykp=ykp
-        self.yki=yki
-        self.ykd=ykd
-    def setPID_z(self,zkp,zki,zkd): 
-        self.zkp=zkp
-        self.zki=zki
-        self.zkd=zkd
-    def setPID_h(self,hkp,hki,hkd):  
-        self.hkp=hkp
-        self.hki=hki
-        self.hkd=hkd
-    def getPID_x(self):
-        return [self.xkp,self.xki,self.xkd]
-    def getPID_y(self):
-        return [self.ykp,self.yki,self.ykd]
-    def getPID_z(self):
-        return [self.zkp,self.zki,self.zkd]
-    def getPID_h(self):
-        return [self.hkp,self.hki,self.hkd]
+   
   
