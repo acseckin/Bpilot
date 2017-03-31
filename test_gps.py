@@ -1,5 +1,5 @@
-import acsgps
+import Pgps
 
-gp=acsgps.gps()
+gp=Pgps.gps()
 while (True):
         gp.readGPGGA()

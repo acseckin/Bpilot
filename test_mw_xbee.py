@@ -1,8 +1,8 @@
-from mw import MultiWii
-import acsxbee
+from Pmwii import MultiWii
+import Pxbee
 
 board = MultiWii("/dev/ttyO1")
-xb=acsxbee.xbee()
+xb=Pxbee.xbee()
 altitude=[0,0,0,0]
 PID=[0,0,0,0,0,0,0,0,0]
 rc=[0,0,0,0]
