@@ -1,2 +1,1 @@
-# bbb-mw-pilot
-beaglebone multiwii auto pilot
+# beaglebone auto pilot
