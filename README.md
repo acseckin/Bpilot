@@ -1,2 +1,3 @@
-# Ahmet Çağdaş SEÇKİN
-Autopilot for Beaglebone Black
+# Autopilot for Beaglebone Black
+Ahmet Çağdaş SEÇKİN
+
