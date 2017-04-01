@@ -50,7 +50,7 @@ class xbee():
         else:
             return [0]
     
-    def send(self,send):
+    def transmit(self,send):
         try:
             self.ser.write(str(send))
             self.ser.flush()
@@ -58,7 +58,7 @@ class xbee():
         except ValueError:
             return [0, ValueError]
             
-    def sendMWii(self,attitude):
+    def transmitMWii(self,attitude):
         attitude[0]= int(attitude[0]*10)
         attitude[1]= int(attitude[1]*10)
         attitude[2]= int(attitude[2]*10)
@@ -68,25 +68,25 @@ class xbee():
         outstr=outstr.replace("[","")
         outstr=outstr.replace("]","")
         outstr=outstr.replace(",",":")
-        return self.send(outstr)
+        return self.transmit(outstr)
     
-    def sendPID(self,PID):
+    def transmitPID(self,PID):
         PID=str(PID)
         outstr=self.PIDCONT+":"+PID+":\n"
         outstr=outstr.replace("[","")
         outstr=outstr.replace("]","")
         outstr=outstr.replace(",",":")
-        return self.send(outstr)
+        return self.transmit(outstr)
         
-    def sendRC(self,rcChannels):
+    def transmitRC(self,rcChannels):
         rcChannels=str(rcChannels)
         outstr=self.RCCHANNEL+":"+rcChannels+":\n"
         outstr=outstr.replace("[","")
         outstr=outstr.replace("]","")
         outstr=outstr.replace(",",":")
-        return self.send(outstr)
+        return self.transmit(outstr)
     
-    def sendGPS(self,latitude,longitute,height):
+    def transmitGPS(self,latitude,longitute,height):
         longitute=str(round(longitute,3))
         latitude=str(round(latitude,3))
         height=str(int(height))
@@ -94,9 +94,9 @@ class xbee():
         outstr=outstr.replace("[","")
         outstr=outstr.replace("]","")
         outstr=outstr.replace(",",":")
-        return self.send(outstr)
+        return self.transmit(outstr)
     
-    def readDesired(self):
+    def receive(self):
         try:
             rv=self.read()
             if rv[0]==1:
@@ -123,7 +123,6 @@ class xbee():
                     self.pos[2]=int(xbeein[3])
                     return self.pos
                 elif (xbeein[0]==self.POSCONT) and (len(xbeein)>=4):
-
                     self.heightPID[0]=int(xbeein[1])
                     self.heightPID[1]=int(xbeein[2])
                     self.heightPID[2]=int(xbeein[3])
