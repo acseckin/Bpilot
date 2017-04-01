@@ -18,8 +18,8 @@ class xbee():
         self.roll=0
         self.pitch=0
         self.yaw=0
-        self.height=0
-        self.pos=[0,0]
+        
+        self.pos=[0,0,0]
         self.rcchannels=[0,0,0,0]
         
         self.rollPID=[0,0,0]
@@ -119,8 +119,8 @@ class xbee():
                 elif (xbeein[0]==self.POSITION) and (len(xbeein)>=4):
                     self.pos[0]=int(xbeein[1])
                     self.pos[1]=int(xbeein[2])
-                    self.height=int(xbeein[3])
-                    return self.rcchannels
+                    self.pos[2]=int(xbeein[3])
+                    return self.pos
                 else:
                     print (xbeein)
         except ValueError:
