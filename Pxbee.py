@@ -59,15 +59,8 @@ class xbee():
             return [0, ValueError]
             
     def transmitMWii(self,attitude):
-        attitude[0]= int(attitude[0]*10)
-        attitude[1]= int(attitude[1]*10)
-        attitude[2]= int(attitude[2]*10)
-        #attitude[3]= int(attitude[3]*1000)
-        att=str(attitude)
+        att=str(int(attitude['angx']*10))+":"+str(int(attitude['angy']*10))+":"+str(int(attitude['heading']*10))
         outstr=self.MWII+":"+att+":\n"
-        outstr=outstr.replace("[","")
-        outstr=outstr.replace("]","")
-        outstr=outstr.replace(",",":")
         return self.transmit(outstr)
     
     def transmitPID(self,PID):
