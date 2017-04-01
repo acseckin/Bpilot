@@ -1,3 +1,3 @@
 # Autopilot for Beaglebone Black
-Ahmet Çağdaş SEÇKİN
+Author: Ahmet Çağdaş SEÇKİN
 

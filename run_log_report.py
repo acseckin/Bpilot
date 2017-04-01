@@ -17,6 +17,7 @@ hc=Phcsr04.ultrasonic()
 gps=Pgps.gps()
 while True:
     attitu=mw.getAttitude()
+    print "ATTITUDE:",attitu
     rcchan=mw.getRC()
     pidval=mw.getPID()
     height=hc.getDistance()
