@@ -25,4 +25,4 @@ while True:
     xb.transmitMWii(attitu)
     xb.transmitRC(rcchan)
     xb.transmitPID(pidval)
-    xb.transmitGPS(gpsval[0],gpsval[1],height)
+    #xb.transmitGPS(gpsval[0],gpsval[1],height)
