@@ -62,7 +62,7 @@ class xbee():
         attitude[0]= int(attitude[0]*10)
         attitude[1]= int(attitude[1]*10)
         attitude[2]= int(attitude[2]*10)
-        attitude[3]= int(attitude[3]*1000)
+        #attitude[3]= int(attitude[3]*1000)
         att=str(attitude)
         outstr=self.MWII+":"+att+":\n"
         outstr=outstr.replace("[","")
@@ -122,7 +122,7 @@ class xbee():
                     self.pos[1]=int(xbeein[2])
                     self.pos[2]=int(xbeein[3])
                     return self.pos
-                elif (xbeein[0]==self.POSCONT) and (len(xbeein)>=4):
+                elif (xbeein[0]==self.POSCONT) and (len(xbeein)>=7):
                     self.heightPID[0]=int(xbeein[1])
                     self.heightPID[1]=int(xbeein[2])
                     self.heightPID[2]=int(xbeein[3])
