@@ -19,11 +19,11 @@ gps.start()
 while True:
     attitu=mw.getAttitude()
     print "ATTITUDE:",attitu
-    rcchan=mw.getRC()
-    pidval=mw.getPID()
-    height=hc.getDistance()
-    gpsval=gps.longitude
-    xb.transmitMWii(attitu)
-    xb.transmitRC(rcchan)
-    xb.transmitPID(pidval)
+    #rcchan=mw.getRC()
+    #pidval=mw.getPID()
+    #height=hc.getDistance()
+    #gpsval=gps.longitude
+    #xb.transmitMWii(attitu)
+    #xb.transmitRC(rcchan)
+    #xb.transmitPID(pidval)
     #xb.transmitGPS(gpsval[0],gpsval[1],height)
