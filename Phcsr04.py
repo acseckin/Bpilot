@@ -7,9 +7,11 @@ Created on Fri Mar 31 21:07:35 2017
 """
 import Adafruit_BBIO.GPIO as GPIO
 import time
+import threading
 
-class ultrasonic():
+class ultrasonic(threading.Thread):
     def __init__(self,trig ="P8_10", echo="P8_8" ,temperature=28.0):
+        threading.Thread.__init__(self)
         self.trig=trig
         self.echo=echo
         GPIO.setup(self.trig, GPIO.OUT) 
@@ -19,6 +21,7 @@ class ultrasonic():
         self.status=0
         self.elapsed=0
         self.distance=0
+        self.active=False
     def getDistance(self):
         GPIO.output(self.trig, GPIO.LOW)
         time.sleep(0.1)
@@ -46,3 +49,9 @@ class ultrasonic():
     def updateTemp(self, temperature):
         self.temp=temperature
         self.speedSound=33100.0+0.6*temperature
+    def deactivate(self):
+        self.active=False
+    def run(self):
+        self.active=True
+        while self.active:
+            self.getDistance()

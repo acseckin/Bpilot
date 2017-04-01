@@ -14,6 +14,7 @@ import Pxbee
 mw=Pmwii.MultiWii()
 xb=Pxbee.xbee()
 hc=Phcsr04.ultrasonic()
+hc.start()
 gps=Pgps.gps()
 gps.start()
 while True:
@@ -23,7 +24,7 @@ while True:
     print "RC CHANN:",rcchan
     pidval=mw.getPID()
     print "PID COEF:",pidval
-    #height=hc.getDistance()
+    height=hc.distance
     #gpsval=gps.longitude
     #xb.transmitMWii(attitu)
     #xb.transmitRC(rcchan)
