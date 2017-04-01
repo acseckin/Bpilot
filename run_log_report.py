@@ -15,13 +15,14 @@ mw=Pmwii.MultiWii()
 xb=Pxbee.xbee()
 hc=Phcsr04.ultrasonic()
 gps=Pgps.gps()
+gps.start()
 while True:
     attitu=mw.getAttitude()
     print "ATTITUDE:",attitu
     rcchan=mw.getRC()
     pidval=mw.getPID()
     height=hc.getDistance()
-    gpsval=gps.readGPGGA()
+    gpsval=gps.longitude
     xb.transmitMWii(attitu)
     xb.transmitRC(rcchan)
     xb.transmitPID(pidval)
