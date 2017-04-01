@@ -32,6 +32,7 @@ class xbee():
         self.MWII="$M"
         self.POSITION="$P"
         self.RCCHANNEL="$R"
+        self.POSCONT="$A"
         
         try:
             self.ser= serial.Serial(port = self.port, baudrate=self.baud)
@@ -121,6 +122,15 @@ class xbee():
                     self.pos[1]=int(xbeein[2])
                     self.pos[2]=int(xbeein[3])
                     return self.pos
+                elif (xbeein[0]==self.POSCONT) and (len(xbeein)>=4):
+
+                    self.heightPID[0]=int(xbeein[1])
+                    self.heightPID[1]=int(xbeein[2])
+                    self.heightPID[2]=int(xbeein[3])
+                    self.posPID[0]=int(xbeein[4])
+                    self.posPID[1]=int(xbeein[5])
+                    self.posPID[2]=int(xbeein[6])
+                    return self.heightPID,self.posPID
                 else:
                     print (xbeein)
         except ValueError:
