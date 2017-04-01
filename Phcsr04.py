@@ -43,6 +43,7 @@ class ultrasonic(threading.Thread):
         self.distance=(self.elapsed*self.speedSound)/2.0
         if ((self.distance<2.0)|(self.distance>400.0)):
                 self.status=0
+                self.distance=0
         else:
                 self.status=1
         return self.status, self.elapsed, self.distance
