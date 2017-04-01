@@ -19,7 +19,8 @@ gps.start()
 while True:
     attitu=mw.getAttitude()
     print "ATTITUDE:",attitu
-    #rcchan=mw.getRC()
+    rcchan=mw.getRC()
+    print "RC CHANN:",rcchan
     #pidval=mw.getPID()
     #height=hc.getDistance()
     #gpsval=gps.longitude
