@@ -21,7 +21,8 @@ while True:
     print "ATTITUDE:",attitu
     rcchan=mw.getRC()
     print "RC CHANN:",rcchan
-    #pidval=mw.getPID()
+    pidval=mw.getPID()
+    print "PID COEF:",pidval
     #height=hc.getDistance()
     #gpsval=gps.longitude
     #xb.transmitMWii(attitu)
