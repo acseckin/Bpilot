@@ -118,13 +118,13 @@ class MultiWii:
     def sendCMDreceiveATT(self, data_length, code, data):
         checksum = 0
         total_data = ['$', 'M', '<', data_length, code] + data
-        for i in struct.pack('<2B%dh' % len(data), *total_data[3:len(total_data)]):
+        for i in struct.pack('<2B%dH' % len(data), *total_data[3:len(total_data)]):
             checksum = checksum ^ ord(i)
         total_data.append(checksum)
         try:
             start = time.time()
             b = None
-            b = self.ser.write(struct.pack('<3c2B%dhB' % len(data), *total_data))
+            b = self.ser.write(struct.pack('<3c2B%dHB' % len(data), *total_data))
             while True:
                 header = self.ser.read()
                 if header == '$':
@@ -275,7 +275,6 @@ class MultiWii:
             elif cmd == MultiWii.PID:
                 dataPID=[]
                 if len(temp)>1:
-                    d=0
                     for t in temp:
                         dataPID.append(t%256)
                         dataPID.append(t/256)
@@ -295,7 +294,7 @@ class MultiWii:
             else:
                 return None
         except Exception, error:
-            #print error
+            print error
             pass
     # if you read data inversely
     def inverseParseData(self):
@@ -326,7 +325,7 @@ class MultiWii:
             self.ser.flushInput()
             self.ser.flushOutput()
         except Exception, error:
-            #print error
+            print error
             pass
     """Function to receive a data packet from the board. Note: easier to use on threads"""
     def getDataInf(self, cmd):
