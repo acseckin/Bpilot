@@ -8,18 +8,22 @@ Created on Fri Mar 31 21:07:35 2017
 import serial
 from math import radians, sin, cos, sqrt, asin,atan2,degrees
 import Adafruit_BBIO.UART as UART
-class gps():
+import threading
+
+class gps(threading.Thread):
     def __init__(self,port='/dev/ttyO4',baud=9600):
+        threading.Thread.__init__(self)
         self.port=port
         self.pname="UART"+port[-1:]
         self.baud=baud
         self.uart=UART.setup(self.pname)
         self.gpsserial=serial.Serial(self.port,self.baud)
         self.active=False
-        if self.gpsserial.isOpen():
-            print "GPS ok"
-        else:
+        while (not self.gpsserial.isOpen()):
             print "GPS is not connected"
+            self.gpsserial=serial.Serial(self.port,self.baud)
+        self.longitude=[0,0,0]
+        self.latitude=[0,0,0]
     def readGPRMC(self):
         self.gpsserial.flushInput()
         gpsinput=self.gpsserial.readline()
@@ -32,7 +36,6 @@ class gps():
                 self.long=rmc[5]
             else:
                 self.active=False
-                print "Deaktif"
     def readGPGGA(self):
         self.gpsserial.flushInput()
         gpsinput=self.gpsserial.readline()
@@ -45,9 +48,7 @@ class gps():
                 self.altitude=float(gga[9])
                 self.latitude=[float(gga[2][:2]),float(gga[2][2:4]),float(gga[2][4:])]
                 self.longitude=[float(gga[4][:2]),float(gga[4][2:4]),float(gga[4][4:])]
-                return self.latitude,self.longitude,self.altitude,self.sats
-            else:
-                return [[0,0,0],[0,0,0],0,0]
+
     def bearing(self, lo1, la1, lo2, la2):
         lat1=la1
         lon1 = lo1
@@ -75,3 +76,9 @@ class gps():
         dlat1=lat1[0]+(lat1[1]*60.0+lat1[2]+lat1[3])/3600.0
         dlat2=lat2[0]+(lat2[1]*60.0+lat2[2]+lat2[3])/3600.0
         return self.haversinedecimal(dlon1,dlat1,dlon2,dlat2)
+    def deactivate(self):
+        self.active=False
+        
+    def run(self):
+        while self.active:
+            self.readGPGGA()

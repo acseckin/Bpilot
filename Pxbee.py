@@ -7,8 +7,12 @@ Created on Fri Mar 31 21:07:35 2017
 """
 import serial
 import Adafruit_BBIO.UART as UART
-class xbee():
+import threading
+
+class xbee(threading.Thread):
     def __init__(self,port="/dev/ttyO5",baud=115200):
+        threading.Thread.__init__(self)
+        
         self.port=port
         self.baud=baud
         self.uname="UART"+str(port[-1])
@@ -42,6 +46,9 @@ class xbee():
             self.status=1
         except ValueError:
             self.status=0
+    def run(self):
+        self.receive()
+
     def read(self):
         if self.ser.inWaiting():
             xbeein=self.ser.readline()

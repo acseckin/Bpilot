@@ -8,5 +8,6 @@ Created on Fri Mar 31 21:07:35 2017
 import Pgps
 
 gp=Pgps.gps()
+gp.start()
 while (True):
-        gp.readGPGGA()
+    print gp.active
