@@ -9,5 +9,4 @@ import Pgps
 
 gp=Pgps.gps()
 gp.start()
-while (True):
-    print gp.latitude,gp.longitude
+

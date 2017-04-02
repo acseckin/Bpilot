@@ -24,9 +24,15 @@ class gps(threading.Thread):
             self.gpsserial=serial.Serial(self.port,self.baud)
         self.longitude=[0,0,0]
         self.latitude=[0,0,0]
-    def readGPRMC(self):
+    def read(self):
         gpsinput=self.gpsserial.readline()
-        if "$GPRMC" in gpsinput:
+        if "$" in gpsinput:
+            return gpsinput
+        else:
+            return False
+    def readGPRMC(self):
+        gpsinput=self.read()
+        if "GPRMC" in gpsinput:
             rmc=gpsinput.split(',')
             if rmc[2]=='A':
                 self.timeUTC=rmc[1][:-8]+":"+rmc[1][-8:-6]+":"+rmc[1][-6:-4]
@@ -36,8 +42,8 @@ class gps(threading.Thread):
                 self.active=False
         self.gpsserial.flushInput()
     def readGPGGA(self):
-        gpsinput=self.gpsserial.readline()
-        if "$GPGGA" in gpsinput:
+        gpsinput=self.read()
+        if "GPGGA" in gpsinput:
             gga=gpsinput.split(',')
             self.sats=int(gga[7])
             if self.sats>=1:
@@ -80,5 +86,4 @@ class gps(threading.Thread):
         
     def run(self):
         while self.active:
-            self.readGPGGA()
-            print self.active
+            print self.read()
