@@ -43,7 +43,7 @@ class gps(threading.Thread):
         self.gpsserial.flushInput()
     def readGPGGA(self):
         gpsinput=self.read()
-        if "GPGGA" in gpsinput:
+        if "$GPGGA" in gpsinput:
             gga=gpsinput.split(',')
             self.sats=int(gga[7])
             if self.sats>=1:
