@@ -8,17 +8,17 @@ Created on Fri Mar 31 21:07:35 2017
 import serial
 from math import radians, sin, cos, sqrt, asin,atan2,degrees
 import Adafruit_BBIO.UART as UART
+import threading
 
-
-class gps():
+class gps(threading.Thread):
     def __init__(self,port='/dev/ttyO4',baud=9600):
-
+        threading.Thread.__init__(self)
         self.port=port
         self.pname="UART"+port[-1:]
         self.baud=baud
         self.uart=UART.setup(self.pname)
         self.gpsserial=serial.Serial(self.port,self.baud)
-        self.active=False
+        self.active=True
         while (not self.gpsserial.isOpen()):
             print "GPS is not connected"
             self.gpsserial=serial.Serial(self.port,self.baud)
@@ -31,7 +31,6 @@ class gps():
             rmc=gpsinput.split(',')
             if rmc[2]=='A':
                 self.timeUTC=rmc[1][:-8]+":"+rmc[1][-8:-6]+":"+rmc[1][-6:-4]
-                self.active=True
                 self.lat=rmc[3]
                 self.long=rmc[5]
             else:
@@ -79,3 +78,6 @@ class gps():
     def deactivate(self):
         self.active=False
         
+    def run(self):
+        while self.active:
+            self.readGPGGA()
