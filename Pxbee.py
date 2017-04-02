@@ -16,7 +16,7 @@ class xbee(threading.Thread):
         self.log=log
         if (self.log==1):
             self.starttime=datetime.datetime.now()
-            self.filename="log_"+str(self.starttime)+".csv"
+            self.filename="logs/log_"+str(self.starttime)+".csv"
             self.outputFile = open( self.filename, "a" )
             self.outputFile.write(str(self.starttime))
         
