@@ -25,7 +25,6 @@ while True:
     pidval=mw.getPID()
     print "PID COEF:",pidval
     height=hc.distance
-    
     gpslong=gps.longitude
     gpslatt=gps.latitude
     gpsval=[gpslong,gpslong]
