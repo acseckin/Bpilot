@@ -8,11 +8,11 @@ Created on Fri Mar 31 21:07:35 2017
 import serial
 from math import radians, sin, cos, sqrt, asin,atan2,degrees
 import Adafruit_BBIO.UART as UART
-import threading
 
-class gps(threading.Thread):
+
+class gps():
     def __init__(self,port='/dev/ttyO4',baud=9600):
-        threading.Thread.__init__(self)
+
         self.port=port
         self.pname="UART"+port[-1:]
         self.baud=baud
@@ -79,6 +79,3 @@ class gps(threading.Thread):
     def deactivate(self):
         self.active=False
         
-    def run(self):
-        while self.active:
-            self.readGPGGA()
