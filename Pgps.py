@@ -43,6 +43,7 @@ class gps(threading.Thread):
         self.gpsserial.flushInput()
     def readGPGGA(self):
         gpsinput=self.gpsserial.readline()
+        print gpsinput
         if "$GPGGA" in gpsinput:
             gga=gpsinput.split(',')
             print gga
@@ -53,8 +54,7 @@ class gps(threading.Thread):
                 self.altitude=float(gga[9])
                 self.latitude=[float(gga[2][:2]),float(gga[2][2:4]),float(gga[2][4:])]
                 self.longitude=[float(gga[4][:2]),float(gga[4][2:4]),float(gga[4][4:])]
-            else:
-                print gpsinput
+                
         self.gpsserial.flushInput()
 
     def bearing(self, lo1, la1, lo2, la2):
