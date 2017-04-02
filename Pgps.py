@@ -46,7 +46,7 @@ class gps(threading.Thread):
         print gpsinput
         if "$GPGGA" in gpsinput:
             gga=gpsinput.split(',')
-            print gga
+            #print gga
             self.sats=int(gga[7])
             if self.sats>=1:
                 self.time=gga[1]
@@ -89,4 +89,4 @@ class gps(threading.Thread):
     def run(self):
         while self.active:
             self.readGPGGA()
-            print self.longitude, self.latitude
+            #print self.longitude, self.latitude
