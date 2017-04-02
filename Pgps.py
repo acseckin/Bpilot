@@ -54,8 +54,7 @@ class gps(threading.Thread):
                 self.altitude=float(gga[9])
                 self.latitude=[float(gga[2][:2]),float(gga[2][2:4]),float(gga[2][4:])]
                 self.longitude=[float(gga[4][:2]),float(gga[4][2:4]),float(gga[4][4:])]
-                
-        self.gpsserial.flushInput()
+                self.gpsserial.flushInput()
 
     def bearing(self, lo1, la1, lo2, la2):
         lat1=la1
