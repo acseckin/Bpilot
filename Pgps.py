@@ -29,7 +29,7 @@ class gps(threading.Thread):
         if "$" in gpsinput:
             return gpsinput
         else:
-            return False
+            return ""
     def readGPRMC(self):
         gpsinput=self.read()
         if "GPRMC" in gpsinput:
