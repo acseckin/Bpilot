@@ -81,3 +81,4 @@ class gps(threading.Thread):
     def run(self):
         while self.active:
             self.readGPGGA()
+            print self.active
