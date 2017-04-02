@@ -25,7 +25,9 @@ while True:
     pidval=mw.getPID()
     print "PID COEF:",pidval
     height=hc.distance
-    gpsval=gps.longitude
+    gpslong=gps.longitude
+    gpslatt=gps.latitude
+    gpsval=[gpslong,gpslong]
     print "POSTION:",gpsval,height
     xb.transmitMWii(attitu)
     xb.transmitRC(rcchan)
