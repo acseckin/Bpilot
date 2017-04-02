@@ -71,6 +71,7 @@ class xbee(threading.Thread):
         return self.transmit(outstr)
     
     def transmitPID(self,PID):
+        print type(PID)
         outstr=self.PIDCONT+":"+str(int(PID['rp']*10))+":"+str(int(PID['ri']*1000))+":"+str(int(PID['rd']))+":"+str(int(PID['pp']*10))+":"+str(int(PID['pi']*1000))+":"+str(int(PID['pd']))+":"+str(int(PID['yp']*10))+":"+str(int(PID['yi']*1000))+":"+str(int(PID['yd']))+":\n"
         return self.transmit(outstr)
         
