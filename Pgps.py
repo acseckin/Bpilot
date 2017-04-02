@@ -25,7 +25,6 @@ class gps(threading.Thread):
         self.longitude=[0,0,0]
         self.latitude=[0,0,0]
     def readGPRMC(self):
-        self.gpsserial.flushInput()
         gpsinput=self.gpsserial.readline()
         if "$GPRMC" in gpsinput:
             rmc=gpsinput.split(',')
@@ -35,8 +34,8 @@ class gps(threading.Thread):
                 self.long=rmc[5]
             else:
                 self.active=False
-    def readGPGGA(self):
         self.gpsserial.flushInput()
+    def readGPGGA(self):
         gpsinput=self.gpsserial.readline()
         if "$GPGGA" in gpsinput:
             gga=gpsinput.split(',')
@@ -47,6 +46,7 @@ class gps(threading.Thread):
                 self.altitude=float(gga[9])
                 self.latitude=[float(gga[2][:2]),float(gga[2][2:4]),float(gga[2][4:])]
                 self.longitude=[float(gga[4][:2]),float(gga[4][2:4]),float(gga[4][4:])]
+        self.gpsserial.flushInput()
 
     def bearing(self, lo1, la1, lo2, la2):
         lat1=la1
