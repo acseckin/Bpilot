@@ -281,15 +281,15 @@ class MultiWii:
                     for p in [0,3,6,9]:
                         dataPID[p]=dataPID[p]/10.0
                         dataPID[p+1]=dataPID[p+1]/1000.0
-                    self.PIDcoef['rp']= dataPID=[0]
-                    self.PIDcoef['ri']= dataPID=[1]
-                    self.PIDcoef['rd']= dataPID=[2]
-                    self.PIDcoef['pp']= dataPID=[3]
-                    self.PIDcoef['pi']= dataPID=[4]
-                    self.PIDcoef['pd']= dataPID=[5]
-                    self.PIDcoef['yp']= dataPID=[6]
-                    self.PIDcoef['yi']= dataPID=[7]
-                    self.PIDcoef['yd']= dataPID=[8]
+                    self.PIDcoef['rp']= dataPID[0]
+                    self.PIDcoef['ri']= dataPID[1]
+                    self.PIDcoef['rd']= dataPID[2]
+                    self.PIDcoef['pp']= dataPID[3]
+                    self.PIDcoef['pi']= dataPID[4]
+                    self.PIDcoef['pd']= dataPID[5]
+                    self.PIDcoef['yp']= dataPID[6]
+                    self.PIDcoef['yi']= dataPID[7]
+                    self.PIDcoef['yd']= dataPID[8]
                 return self.PIDcoef
             else:
                 return None
