@@ -16,7 +16,6 @@ xb=Pxbee.xbee()
 hc=Phcsr04.ultrasonic()
 hc.start()
 gps=Pgps.gps()
-gps.start()
 while True:
     attitu=mw.getAttitude()
     print "ATTITUDE:",attitu
