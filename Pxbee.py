@@ -71,19 +71,11 @@ class xbee(threading.Thread):
         return self.transmit(outstr)
     
     def transmitPID(self,PID):
-        PID=str(PID)
-        outstr=self.PIDCONT+":"+PID+":\n"
-        outstr=outstr.replace("[","")
-        outstr=outstr.replace("]","")
-        outstr=outstr.replace(",",":")
+        outstr=self.PIDCONT+":"+str(int(PID['rp']*10))+":"+str(int(PID['ri']*1000))+":"+str(int(PID['rd']))+":"+str(int(PID['pp']*10))+":"+str(int(PID['pi']*1000))+":"+str(int(PID['pd']))+":"+str(int(PID['yp']*10))+":"+str(int(PID['yi']*1000))+":"+str(int(PID['yd']))+":\n"
         return self.transmit(outstr)
         
-    def transmitRC(self,rcChannels):
-        rcChannels=str(rcChannels)
-        outstr=self.RCCHANNEL+":"+rcChannels+":\n"
-        outstr=outstr.replace("[","")
-        outstr=outstr.replace("]","")
-        outstr=outstr.replace(",",":")
+    def transmitRC(self,rcCh):
+        outstr=self.RCCHANNEL+":"+str(int(rcCh['throttle']))+":"+str(int(rcCh['yaw']))+":"+str(int(rcCh['pitch']))+":"+str(int(rcCh['roll']))+":\n"
         return self.transmit(outstr)
     
     def transmitGPS(self,latitude,longitute,height):
