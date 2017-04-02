@@ -8,10 +8,17 @@ Created on Fri Mar 31 21:07:35 2017
 import serial
 import Adafruit_BBIO.UART as UART
 import threading
+import datetime
 
 class xbee(threading.Thread):
-    def __init__(self,port="/dev/ttyO5",baud=115200):
+    def __init__(self,port="/dev/ttyO5",baud=115200,log=1):
         threading.Thread.__init__(self)
+        self.log=log
+        if (self.log==1):
+            self.starttime=datetime.datetime.now()
+            self.filename="log_"+str(self.starttime)+".csv"
+            self.outputFile = open( self.filename, "a" )
+            self.outputFile.write(str(self.starttime))
         
         self.port=port
         self.baud=baud
@@ -38,6 +45,10 @@ class xbee(threading.Thread):
         self.RCCHANNEL="$R"
         self.POSCONT="$A"
         
+        self.att=""
+        self.PID=""
+        self.rcCh=""
+        self.position=""
         try:
             self.ser= serial.Serial(port = self.port, baudrate=self.baud)
             self.ser.close()
@@ -66,29 +77,36 @@ class xbee(threading.Thread):
             return [0, ValueError]
             
     def transmitMWii(self,attitude):
-        att=str(int(attitude['angx']*10))+":"+str(int(attitude['angy']*10))+":"+str(int(attitude['heading']*10))
-        outstr=self.MWII+":"+att+":\n"
+        self.att=str(int(attitude['angx']*10))+":"+str(int(attitude['angy']*10))+":"+str(int(attitude['heading']*10))
+        outstr=self.MWII+":"+self.att+":\n"
         return self.transmit(outstr)
     
     def transmitPID(self,PID):
-        print type(PID)
-        outstr=self.PIDCONT+":"+str(int(PID['rp']*10))+":"+str(int(PID['ri']*1000))+":"+str(int(PID['rd']))+":"+str(int(PID['pp']*10))+":"+str(int(PID['pi']*1000))+":"+str(int(PID['pd']))+":"+str(int(PID['yp']*10))+":"+str(int(PID['yi']*1000))+":"+str(int(PID['yd']))+":\n"
+        self.PID=str(int(PID['rp']*10))+":"+str(int(PID['ri']*1000))+":"+str(int(PID['rd']))+":"+str(int(PID['pp']*10))+":"+str(int(PID['pi']*1000))+":"+str(int(PID['pd']))+":"+str(int(PID['yp']*10))+":"+str(int(PID['yi']*1000))+":"+str(int(PID['yd']))
+        outstr=self.PIDCONT+":"+self.PID+":\n"
         return self.transmit(outstr)
         
     def transmitRC(self,rcCh):
-        outstr=self.RCCHANNEL+":"+str(int(rcCh['throttle']))+":"+str(int(rcCh['yaw']))+":"+str(int(rcCh['pitch']))+":"+str(int(rcCh['roll']))+":\n"
+        self.rcCh=str(int(rcCh['throttle']))+":"+str(int(rcCh['yaw']))+":"+str(int(rcCh['pitch']))+":"+str(int(rcCh['roll']))
+        outstr=self.RCCHANNEL+":"+self.rcCh+":\n"
         return self.transmit(outstr)
     
     def transmitGPS(self,latitude,longitute,height):
         longitute=str(round(longitute,3))
         latitude=str(round(latitude,3))
         height=str(int(height))
-        outstr=self.POSITION+":"+longitute+":"+latitude+":\n"
+        outstr=longitute+":"+latitude+":"+height
         outstr=outstr.replace("[","")
         outstr=outstr.replace("]","")
         outstr=outstr.replace(",",":")
+        self.position=outstr
+        outstr=self.POSITION+":"+self.position+":\n"
         return self.transmit(outstr)
-    
+    def saveOutputs(self):
+        if (self.log==1):
+            self.elapsed=str(datetime.datetime.now()-self.starttime)
+            self.outputFile.write(self.elapsed+self.att+"::"+self.PID+"::"+self.rcCh+"::"+self.position+"\n")
+        
     def receive(self):
         try:
             rv=self.read()

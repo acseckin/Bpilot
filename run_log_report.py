@@ -31,3 +31,5 @@ while True:
     xb.transmitRC(rcchan)
     xb.transmitPID(pidval)
     xb.transmitGPS(gpsval[0],gpsval[1],height)
+    
+    
