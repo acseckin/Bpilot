@@ -42,9 +42,10 @@ class gps(threading.Thread):
                 self.active=False
         self.gpsserial.flushInput()
     def readGPGGA(self):
-        gpsinput=self.read()
+        gpsinput=self.gpsserial.readline()
         if "$GPGGA" in gpsinput:
             gga=gpsinput.split(',')
+            print gga
             self.sats=int(gga[7])
             if self.sats>=1:
                 self.time=gga[1]
@@ -53,7 +54,7 @@ class gps(threading.Thread):
                 self.latitude=[float(gga[2][:2]),float(gga[2][2:4]),float(gga[2][4:])]
                 self.longitude=[float(gga[4][:2]),float(gga[4][2:4]),float(gga[4][4:])]
             else:
-                print "Number of sat less than 1"
+                print gpsinput
         self.gpsserial.flushInput()
 
     def bearing(self, lo1, la1, lo2, la2):
