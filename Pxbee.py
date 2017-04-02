@@ -92,8 +92,8 @@ class xbee(threading.Thread):
         return self.transmit(outstr)
     
     def transmitGPS(self,latitude,longitute,height):
-        longitute=str(round(longitute,3))
-        latitude=str(round(latitude,3))
+        longitute=str(longitute)
+        latitude=str(latitude)
         height=str(int(height))
         outstr=longitute+":"+latitude+":"+height
         outstr=outstr.replace("[","")
