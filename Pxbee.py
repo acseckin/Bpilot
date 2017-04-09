@@ -11,9 +11,10 @@ import threading
 import datetime
 
 class xbee(threading.Thread):
-    def __init__(self,port="/dev/ttyO5",baud=115200,log=1):
+    def __init__(self,port="/dev/ttyO5",baud=115200,log=1,uavid=1):
         threading.Thread.__init__(self)
         self.log=log
+        self.uavid=":"+chr(uavid)+"\n"
         if (self.log==1):
             self.starttime=datetime.datetime.now()
             self.filename="logs/log_"+str(self.starttime)+".csv"
@@ -78,17 +79,17 @@ class xbee(threading.Thread):
             
     def transmitMWii(self,attitude):
         self.att=str(int(attitude['angx']*10))+":"+str(int(attitude['angy']*10))+":"+str(int(attitude['heading']*10))
-        outstr=self.MWII+":"+self.att+":\n"
+        outstr=self.MWII+":"+self.att+self.uavid
         return self.transmit(outstr)
     
     def transmitPID(self,PID):
         self.PID=str(int(PID['rp']*10))+":"+str(int(PID['ri']*1000))+":"+str(int(PID['rd']))+":"+str(int(PID['pp']*10))+":"+str(int(PID['pi']*1000))+":"+str(int(PID['pd']))+":"+str(int(PID['yp']*10))+":"+str(int(PID['yi']*1000))+":"+str(int(PID['yd']))
-        outstr=self.PIDCONT+":"+self.PID+":\n"
+        outstr=self.PIDCONT+":"+self.PID+self.uavid
         return self.transmit(outstr)
         
     def transmitRC(self,rcCh):
         self.rcCh=str(int(rcCh['throttle']))+":"+str(int(rcCh['yaw']))+":"+str(int(rcCh['pitch']))+":"+str(int(rcCh['roll']))
-        outstr=self.RCCHANNEL+":"+self.rcCh+":\n"
+        outstr=self.RCCHANNEL+":"+self.rcCh+self.uavid
         return self.transmit(outstr)
     
     def transmitGPS(self,latitude,longitute,height):
@@ -100,7 +101,7 @@ class xbee(threading.Thread):
         outstr=outstr.replace("]","")
         outstr=outstr.replace(",",":")
         self.position=outstr
-        outstr=self.POSITION+":"+self.position+":\n"
+        outstr=self.POSITION+":"+self.position+self.uavid
         return self.transmit(outstr)
     def saveOutputs(self):
         if (self.log==1):
