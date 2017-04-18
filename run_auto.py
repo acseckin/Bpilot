@@ -45,5 +45,5 @@ def getUpdates():
         print "RC:",vals
 while True:
     ainfo=getInfo()
-    #reportInfo(ainfo)
-    #getUpdates()
+    reportInfo(ainfo)
+    getUpdates()
