@@ -26,8 +26,10 @@ def getInfo():
     gpslong=gps.longitude
     gpslatt=gps.latitude
     gpsval=[gpslong,gpslatt]
-    return attitu,rcchan,pidval,height,gpsval
-def reportInfo(attitu,rcchan,pidval,height,gpsval):
+    rv= attitu,rcchan,pidval,height,gpsval
+    return rv
+def reportInfo(inval):
+    attitu,rcchan,pidval,height,gpsval=inval
     xb.transmitMWii(attitu)
     xb.transmitRC(rcchan)
     xb.transmitPID(pidval)
