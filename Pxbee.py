@@ -118,8 +118,8 @@ class xbee(threading.Thread):
         return updatevals
     def receive(self):
         rv=self.read()
-        print rv
         if rv[0]==1:
+            print rv
             xbeein=rv[1].split(":")
             if (xbeein[0]==self.PIDCONT) and (len(xbeein)>=10):
                 self.rollPID[0]=int(xbeein[1])
