@@ -1,8 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Fri Mar 31 21:07:35 2017
-
 @author: acseckin
 """
 
@@ -19,22 +17,30 @@ hc=Phcsr04.ultrasonic()
 hc.start()
 gps=Pgps.gps()
 gps.start()
-while True:
+
+def getInfo():
     attitu=mw.getAttitude()
-    print "ATTITUDE:",attitu
     rcchan=mw.getRC()
-    print "RC CHANN:",rcchan
     pidval=mw.getPID()
-    print "PID COEF:",pidval
     height=hc.distance
     gpslong=gps.longitude
     gpslatt=gps.latitude
-    gpsval=[gpslong,gpslong]
-    print "POSTION:",gpsval,height
+    gpsval=[gpslong,gpslatt]
+    return attitu,rcchan,pidval,height,gpsval
+def reportInfo(attitu,rcchan,pidval,height,gpsval):
     xb.transmitMWii(attitu)
     xb.transmitRC(rcchan)
     xb.transmitPID(pidval)
     xb.transmitGPS(gpsval[0],gpsval[1],height)
     xb.saveOutputs()
+while True:
+    ainfo=getInfo()
+    reportInfo(ainfo)
+    
+    
+    
+    
+    
+    
     
     

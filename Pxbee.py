@@ -11,7 +11,7 @@ import threading
 import datetime
 
 class xbee(threading.Thread):
-    def __init__(self,port="/dev/ttyO5",baud=115200,log=1,uavid=1):
+    def __init__(self,port="/dev/ttyO5",baud=115200,log=1,uavid=10):
         threading.Thread.__init__(self)
         self.log=log
         self.uavid=":"+chr(uavid)+"\n"
@@ -37,7 +37,7 @@ class xbee(threading.Thread):
         self.rollPID=[0,0,0]
         self.pitchPID=[0,0,0]
         self.yawPID=[0,0,0]
-        self.heightPID=[0,0,0]
+        self.altitudePID=[0,0,0]
         self.posPID=[0,0,0]
         
         self.PIDCONT="$C"
@@ -58,8 +58,6 @@ class xbee(threading.Thread):
             self.status=1
         except ValueError:
             self.status=0
-    def run(self):
-        self.receive()
 
     def read(self):
         if self.ser.inWaiting():
@@ -123,7 +121,10 @@ class xbee(threading.Thread):
                     self.yawPID[0]=int(xbeein[7])
                     self.yawPID[1]=int(xbeein[8])
                     self.yawPID[2]=int(xbeein[9])
-                    return self.rollPID,self.pitchPID,self.yawPID
+                    self.altitudePID[0]=int(xbeein[10])
+                    self.altitudePID[1]=int(xbeein[11])
+                    self.altitudePID[2]=int(xbeein[12])
+                    return self.rollPID,self.pitchPID,self.yawPID,self.altitudePID
                 elif (xbeein[0]==self.RCCHANNEL) and (len(xbeein)>=4):
                     self.rcchannels[0]=int(xbeein[1])
                     self.rcchannels[1]=int(xbeein[2])
@@ -146,5 +147,6 @@ class xbee(threading.Thread):
                     print (xbeein)
         except ValueError:
             print ValueError
-   
-  
+    def run(self):
+        while self.status==1:
+            self.receive()
