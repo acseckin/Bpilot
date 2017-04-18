@@ -135,18 +135,19 @@ class xbee(threading.Thread):
                     self.altitudePID[1]=int(xbeein[11])
                     self.altitudePID[2]=int(xbeein[12])
                     self.isNewUpdate=1
-                    
+                    print "PID"
                 elif (xbeein[0]==self.RCCHANNEL) and (len(xbeein)>=4):
                     self.rcchannels[0]=int(xbeein[1])
                     self.rcchannels[1]=int(xbeein[2])
                     self.rcchannels[2]=int(xbeein[3])
                     self.isNewUpdate=2
+                    print "RCCHANNEL"
                 elif (xbeein[0]==self.POSITION) and (len(xbeein)>=4):
                     self.pos[0]=int(xbeein[1])
                     self.pos[1]=int(xbeein[2])
                     self.pos[2]=int(xbeein[3])
                     self.isNewUpdate=3
-                    #
+                    print "POSITIONL"
                 elif (xbeein[0]==self.POSCONT) and (len(xbeein)>=7):
                     self.heightPID[0]=int(xbeein[1])
                     self.heightPID[1]=int(xbeein[2])
@@ -155,7 +156,8 @@ class xbee(threading.Thread):
                     self.posPID[1]=int(xbeein[5])
                     self.posPID[2]=int(xbeein[6])
                     self.isNewUpdate=4
-                    #
+                    print "POSCONT"
+                    
                 else:
                     print (xbeein)
         except ValueError:
