@@ -35,9 +35,18 @@ def reportInfo(inval):
     xb.transmitPID(pidval)
     xb.transmitGPS(gpsval[0],gpsval[1],height)
     xb.saveOutputs()
+def getUpdates():
+    if xb.isNewUpdate==1:
+        vals=xb.readUpdates()
+        print "PID:",vals
+        #mw.setPID()
+    elif xb.isNewUpdate==2:
+        vals=xb.readUpdates()
+        print "RC:",vals
 while True:
     ainfo=getInfo()
     reportInfo(ainfo)
+    getUpdates()
     
     
     

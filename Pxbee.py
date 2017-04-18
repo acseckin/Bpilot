@@ -20,7 +20,7 @@ class xbee(threading.Thread):
             self.filename="logs/log_"+str(self.starttime)+".csv"
             self.outputFile = open( self.filename, "a" )
             self.outputFile.write(str(self.starttime))
-        
+        self.isNewUpdate=0
         self.port=port
         self.baud=baud
         self.uname="UART"+str(port[-1])
@@ -105,7 +105,17 @@ class xbee(threading.Thread):
         if (self.log==1):
             self.elapsed=str(datetime.datetime.now()-self.starttime)
             self.outputFile.write(self.elapsed+self.att+"::"+self.PID+"::"+self.rcCh+"::"+self.position+"\n")
-        
+    def readUpdates(self):
+        if self.isNewUpdate==1:
+            updatevals= self.rollPID,self.pitchPID,self.yawPID,self.altitudePID
+        elif self.isNewUpdate==2:
+            updatevals= self.rcchannels
+        elif self.isNewUpdate==3:
+            updatevals =self.pos
+        elif self.isNewUpdate==4:
+            updatevals =self.heightPID,self.posPID
+        self.isNewUpdate=0
+        return updatevals
     def receive(self):
         try:
             rv=self.read()
@@ -124,17 +134,19 @@ class xbee(threading.Thread):
                     self.altitudePID[0]=int(xbeein[10])
                     self.altitudePID[1]=int(xbeein[11])
                     self.altitudePID[2]=int(xbeein[12])
-                    return self.rollPID,self.pitchPID,self.yawPID,self.altitudePID
+                    self.isNewUpdate=1
+                    
                 elif (xbeein[0]==self.RCCHANNEL) and (len(xbeein)>=4):
                     self.rcchannels[0]=int(xbeein[1])
                     self.rcchannels[1]=int(xbeein[2])
                     self.rcchannels[2]=int(xbeein[3])
-                    return self.rcchannels
+                    self.isNewUpdate=2
                 elif (xbeein[0]==self.POSITION) and (len(xbeein)>=4):
                     self.pos[0]=int(xbeein[1])
                     self.pos[1]=int(xbeein[2])
                     self.pos[2]=int(xbeein[3])
-                    return self.pos
+                    self.isNewUpdate=3
+                    #
                 elif (xbeein[0]==self.POSCONT) and (len(xbeein)>=7):
                     self.heightPID[0]=int(xbeein[1])
                     self.heightPID[1]=int(xbeein[2])
@@ -142,7 +154,8 @@ class xbee(threading.Thread):
                     self.posPID[0]=int(xbeein[4])
                     self.posPID[1]=int(xbeein[5])
                     self.posPID[2]=int(xbeein[6])
-                    return self.heightPID,self.posPID
+                    self.isNewUpdate=4
+                    #
                 else:
                     print (xbeein)
         except ValueError:
