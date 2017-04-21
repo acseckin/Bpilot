@@ -8,7 +8,7 @@ Created on Fri Apr 21 23:16:15 2017
 
 from Pmwii import MultiWii
 import time
-vals=[0,0,0,0,0,0,0,0,0]
+vals=[0,0,0,0,0,0,0,0,0,0,0,0]
 mw = MultiWii("/dev/ttyO1")
 i=0
 bt=time.time()
