@@ -10,9 +10,9 @@ import Pxbee
 import time
 xb=Pxbee.xbee()
 xb.start()
-
+bt=time.time()
 t=time.time()
 while True:
     if time.time()-t>2:
         t=time.time()
-        xb.transmit("hello !!")
+        xb.transmit("t:"+str(time.time()-bt)+"\n")
