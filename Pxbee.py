@@ -107,14 +107,19 @@ class xbee(threading.Thread):
             self.elapsed=str(datetime.datetime.now()-self.starttime)
             self.outputFile.write(self.elapsed+self.att+"::"+self.PID+"::"+self.rcCh+"::"+self.position+"\n")
     def readUpdates(self):
+        updatevals=[]
         if self.isNewUpdate==1:
-            updatevals= self.rollPID,self.pitchPID,self.yawPID,self.altitudePID
+            updatevals.append(self.rollPID)
+            updatevals.append(self.pitchPID)
+            updatevals.append(self.yawPID)              
+            updatevals.append(self.altitudePID)
         elif self.isNewUpdate==2:
             updatevals= self.rcchannels
         elif self.isNewUpdate==3:
             updatevals =self.pos
         elif self.isNewUpdate==4:
-            updatevals =self.heightPID,self.posPID
+            updatevals.append(self.heightPID)
+            updatevals.append(self.posPID)
         self.isNewUpdate=0
         return updatevals
     def receive(self):
@@ -123,15 +128,15 @@ class xbee(threading.Thread):
             print rv
             xbeein=rv[1].split(":")
             if (xbeein[0]==self.PIDCONT) and (len(xbeein)>=10):
-                self.rollPID[0]=int(xbeein[1])/10.0
-                self.rollPID[1]=int(xbeein[2])/1000.0
-                self.rollPID[2]=int(xbeein[3])/1.0
-                self.pitchPID[0]=int(xbeein[4])/10.0
-                self.pitchPID[1]=int(xbeein[5])/1000.0
-                self.pitchPID[2]=int(xbeein[6])/1.0
-                self.yawPID[0]=int(xbeein[7])/10.0
-                self.yawPID[1]=int(xbeein[8])/1000.0
-                self.yawPID[2]=int(xbeein[9])/1.0
+                self.rollPID[0]=int(xbeein[1])
+                self.rollPID[1]=int(xbeein[2])
+                self.rollPID[2]=int(xbeein[3])
+                self.pitchPID[0]=int(xbeein[4])
+                self.pitchPID[1]=int(xbeein[5])
+                self.pitchPID[2]=int(xbeein[6])
+                self.yawPID[0]=int(xbeein[7])
+                self.yawPID[1]=int(xbeein[8])
+                self.yawPID[2]=int(xbeein[9])
                 self.altitudePID[0]=int(xbeein[10])/10.0
                 self.altitudePID[1]=int(xbeein[11])/10.0
                 self.altitudePID[2]=int(xbeein[12])/10.0
