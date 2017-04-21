@@ -3,7 +3,7 @@
 """
 @author: acseckin
 """
-
+import time
 import Pgps
 import Phcsr04
 import Pmwii
@@ -44,6 +44,7 @@ def getUpdates():
     elif xb.isNewUpdate==2:
         vals=xb.readUpdates()
         print "RC:",vals
+    time.sleep(1)
 while True:
     ainfo=getInfo()
     reportInfo(ainfo)
