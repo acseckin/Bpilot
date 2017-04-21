@@ -20,7 +20,7 @@ while True:
         ct=time.time()
     if time.time()-bt>5:
         if i>20:
-            i=0
+            break
         i=i+1
         print i
         vals[:]=[i for x in vals]
@@ -28,4 +28,3 @@ while True:
         print ">Write",vals
         bt=time.time()
         time.sleep(1)
-        
