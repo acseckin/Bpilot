@@ -201,6 +201,8 @@ class MultiWii:
         nd=[]
         for i in np.arange(1,len(pd),2):
             nd.append(pd[i]+(pd[i+1]*256))
+        if len(pd)%2>1:
+            nd.append(pd[-1])
         data = nd
         for i in range(0,9-len(nd)):
             data=data+[0]
