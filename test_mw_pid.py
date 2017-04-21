@@ -12,8 +12,9 @@ import time
 vals=[0,0,0,0,0,0,0,0,0]
 mw = MultiWii("/dev/ttyO1")
 i=0
+bt=time.time()
 while True:
-    if time.time()%4>2:
+    if time.time()-bt>3:
       pidval=mw.getPID()
       print pidval
       i=i+1
@@ -22,3 +23,4 @@ while True:
       print ">>",vals
       if i>20:
           i=0
+      bt=time.time()
