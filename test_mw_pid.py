@@ -14,12 +14,13 @@ i=0
 bt=time.time()
 ct=time.time()
 while True:
-    if time.time()-ct>1:
+    if time.time()-ct>2:
         pidval=mw.getPID()
         print ">Read:",pidval
         ct=time.time()
     if time.time()-bt>5:
         i=i+1
+        print i
         vals[:]=[x+i for x in vals]
         mw.setPID(vals)
         print ">Write",vals
