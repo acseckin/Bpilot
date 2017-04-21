@@ -201,7 +201,7 @@ class MultiWii:
         nd=[]
         for i in np.arange(1,len(pd),2):
             nd.append(pd[i]+(pd[i+1]*256))
-        data = nd[0:6]
+        data = nd[0:5]
         print "pid mw write:",data
         self.sendCMD(30,MultiWii.SET_PID,data)
         self.sendCMD(0,MultiWii.EEPROM_WRITE,[])
