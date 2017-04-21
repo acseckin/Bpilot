@@ -204,10 +204,8 @@ class MultiWii:
         if len(pd)%2>0:
             nd.append(pd[-1])
         data = nd
-        """
         for i in range(0,9-len(nd)):
             data=data+[0]
-        """
         print "pid mw write:",data
         self.sendCMD(30,MultiWii.SET_PID,data)
         self.sendCMD(0,MultiWii.EEPROM_WRITE,[])
