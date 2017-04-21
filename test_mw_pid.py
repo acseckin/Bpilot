@@ -18,9 +18,9 @@ while True:
         pidval=mw.getPID()
         print ">Read:",pidval
         ct=time.time()
-    if time.time()-bt>5:
-        if i>20:
+        if i>=20:
             break
+    if time.time()-bt>5:
         i=i+1
         print i
         vals[:]=[i for x in vals]
