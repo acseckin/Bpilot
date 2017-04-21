@@ -197,11 +197,12 @@ class MultiWii:
     """
 
     def setPID(self,pd):
+        print "pid read:",pd
         nd=[]
         for i in np.arange(1,len(pd),2):
             nd.append(pd[i]+pd[i+1]*256)
         data = pd
-        print "PID sending:",data
+        print "pid mw write:",data
         self.sendCMD(30,MultiWii.SET_PID,data)
         self.sendCMD(0,MultiWii.EEPROM_WRITE,[])
     
