@@ -14,7 +14,7 @@ i=0
 bt=time.time()
 ct=time.time()
 while True:
-    if time.time()-ct>2:
+    if time.time()-ct>1:
         pidval=mw.getPID()
         print ">Read:",pidval
         ct=time.time()
@@ -27,4 +27,5 @@ while True:
         if i>20:
             i=0
         bt=time.time()
+        time.sleep(1)
         
