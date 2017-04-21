@@ -19,13 +19,13 @@ while True:
         print ">Read:",pidval
         ct=time.time()
     if time.time()-bt>5:
+        if i>20:
+            i=0
         i=i+1
         print i
         vals[:]=[i for x in vals]
         mw.setPID(vals)
         print ">Write",vals
-        if i>20:
-            i=0
         bt=time.time()
         time.sleep(1)
         
