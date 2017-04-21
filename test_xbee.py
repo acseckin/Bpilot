@@ -15,4 +15,4 @@ t=time.time()
 while True:
     if time.time()-t>2:
         t=time.time()
-        xb.transmit("t:"+str(time.time()-bt)+"\n")
+        xb.transmit("t:"+str(int(time.time()-bt))+"\n")
