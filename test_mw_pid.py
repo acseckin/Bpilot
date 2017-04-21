@@ -16,11 +16,11 @@ bt=time.time()
 while True:
     if time.time()-bt>3:
       pidval=mw.getPID()
-      print pidval
+      print ">>>>>>>Read: "pidval
       i=i+1
       vals[:]=[x+i for x in vals]
       mw.setPID(vals)
-      print ">>",vals
+      print ">>>>>>>Write",vals
       if i>20:
           i=0
       bt=time.time()
