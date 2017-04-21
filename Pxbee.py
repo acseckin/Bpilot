@@ -107,19 +107,14 @@ class xbee(threading.Thread):
             self.elapsed=str(datetime.datetime.now()-self.starttime)
             self.outputFile.write(self.elapsed+self.att+"::"+self.PID+"::"+self.rcCh+"::"+self.position+"\n")
     def readUpdates(self):
-        updatevals=[]
         if self.isNewUpdate==1:
-            updatevals.append(self.rollPID)
-            updatevals.append(self.pitchPID)
-            updatevals.append(self.yawPID)              
-            updatevals.append(self.altitudePID)
+            updatevals= self.rollPID+self.pitchPID+self.yawPID,self.altitudePID
         elif self.isNewUpdate==2:
             updatevals= self.rcchannels
         elif self.isNewUpdate==3:
             updatevals =self.pos
         elif self.isNewUpdate==4:
-            updatevals.append(self.heightPID)
-            updatevals.append(self.posPID)
+            updatevals =self.heightPID+self.posPID
         self.isNewUpdate=0
         return updatevals
     def receive(self):
