@@ -11,7 +11,7 @@ import threading
 import datetime
 
 class xbee(threading.Thread):
-    def __init__(self,port="/dev/ttyO5",baud=9600,log=1,uavid=10):
+    def __init__(self,port="/dev/ttyO5",baud=115200,log=1,uavid=10):
         threading.Thread.__init__(self)
         self.log=log
         self.uavid=":"+chr(uavid)+"\n"
