@@ -133,7 +133,7 @@ class MultiWii:
             datalength = struct.unpack('<b', self.ser.read())[0]
             code = struct.unpack('<b', self.ser.read())
             data = self.ser.read(datalength)
-            temp = struct.unpack('<'+'h'*(datalength/2),data)
+            temp = struct.unpack('<'+'H'*(datalength/2),data)
             self.ser.flushInput()
             self.ser.flushOutput()
             elapsed = time.time() - start
@@ -201,7 +201,7 @@ class MultiWii:
         nd=[]
         for i in np.arange(1,len(pd),2):
             nd.append(pd[i]+(pd[i+1]*256))
-        data = pd
+        data = nd
         print "pid mw write:",pd
         self.sendCMD(30,MultiWii.SET_PID,data)
         self.sendCMD(0,MultiWii.EEPROM_WRITE,[])
