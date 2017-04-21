@@ -7,7 +7,6 @@ Created on Fri Apr 21 23:16:15 2017
 """
 
 from Pmwii import MultiWii
-import numpy as np
 import time
 vals=[0,0,0,0,0,0,0,0,0]
 mw = MultiWii("/dev/ttyO1")
@@ -16,7 +15,7 @@ bt=time.time()
 while True:
     if time.time()-bt>3:
       pidval=mw.getPID()
-      print ">>>>>>>Read: "pidval
+      print ">>>>>>>Read:",pidval
       i=i+1
       vals[:]=[x+i for x in vals]
       mw.setPID(vals)
