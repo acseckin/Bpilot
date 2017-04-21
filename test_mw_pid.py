@@ -21,7 +21,7 @@ while True:
     if time.time()-bt>5:
         i=i+1
         print i
-        vals[:]=[x+i for x in vals]
+        vals[:]=[i for x in vals]
         mw.setPID(vals)
         print ">Write",vals
         if i>20:
