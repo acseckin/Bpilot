@@ -44,6 +44,6 @@ def getUpdates():
         vals=xb.readUpdates()
         print "RC:",vals
 while True:
-    #ainfo=getInfo()
-    #reportInfo(ainfo)
+    ainfo=getInfo()
+    reportInfo(ainfo)
     getUpdates()
