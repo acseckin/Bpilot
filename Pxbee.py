@@ -62,6 +62,7 @@ class xbee(threading.Thread):
     def read(self):
         if self.ser.inWaiting():
             xbeein=self.ser.readline()
+            print xbeein
             self.ser.flush()
             return [1,xbeein]
         else:
