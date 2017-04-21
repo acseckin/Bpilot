@@ -38,7 +38,7 @@ def reportInfo(inval):
 def getUpdates():
     if xb.isNewUpdate==1:
         vals=xb.readUpdates()
-        print "PID:",vals
+        print "PID:",vals[1]
         
     elif xb.isNewUpdate==2:
         vals=xb.readUpdates()
