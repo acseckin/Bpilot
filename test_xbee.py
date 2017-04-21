@@ -13,6 +13,6 @@ xb.start()
 bt=time.time()
 t=time.time()
 while True:
-    if time.time()-t>2:
+    if time.time()-t>5:
         t=time.time()
         xb.transmit("t:"+str(int(time.time()-bt))+"\n")
