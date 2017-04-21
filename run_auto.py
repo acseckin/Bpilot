@@ -40,11 +40,12 @@ def getUpdates():
         vals=xb.readUpdates()
         print "PID:",vals[0]
         mw.setPID(vals[0])
-        
+        time.sleep(1)
     elif xb.isNewUpdate==2:
         vals=xb.readUpdates()
         print "RC:",vals
-    time.sleep(1)
+        time.sleep(1)
+    
 while True:
     ainfo=getInfo()
     reportInfo(ainfo)
