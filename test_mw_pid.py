@@ -12,14 +12,18 @@ vals=[0,0,0,0,0,0,0,0,0]
 mw = MultiWii("/dev/ttyO1")
 i=0
 bt=time.time()
+ct=time.time()
 while True:
-    pidval=mw.getPID()
-    print ">>>>>>>Read:",pidval
+    if time.time()-ct>1:
+        pidval=mw.getPID()
+        print ">Read:",pidval
+        ct=time.time()
     if time.time()-bt>5:
-      i=i+1
-      vals[:]=[x+i for x in vals]
-      mw.setPID(vals)
-      print ">>>>>>>Write",vals
-      if i>20:
-          i=0
-      bt=time.time()
+        i=i+1
+        vals[:]=[x+i for x in vals]
+        mw.setPID(vals)
+        print ">Write",vals
+        if i>20:
+            i=0
+        bt=time.time()
+        
