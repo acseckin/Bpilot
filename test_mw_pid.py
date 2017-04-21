@@ -13,9 +13,9 @@ mw = MultiWii("/dev/ttyO1")
 i=0
 bt=time.time()
 while True:
-    if time.time()-bt>3:
-      pidval=mw.getPID()
-      print ">>>>>>>Read:",pidval
+    pidval=mw.getPID()
+    print ">>>>>>>Read:",pidval
+    if time.time()-bt>5:
       i=i+1
       vals[:]=[x+i for x in vals]
       mw.setPID(vals)
