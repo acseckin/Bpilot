@@ -1,5 +1,5 @@
 #!/bin/sh
 cd /home/debian/autopilot_bbb/
-./config_pins.sh
+./pins_config.sh
 sleep 5
 python Pauto.py
