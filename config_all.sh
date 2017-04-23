@@ -20,11 +20,20 @@ sudo apt-get install gfortran libatlas-base-dev python-pip python-dev -y
 sudo apt-get install python-numpy -y
 sudo apt-get install python-scipy -y
 sudo apt-get install python-matplotlib -y
+echo -e "\n OpenCV install"
+sudo apt-get install python-opencv -y
+sudo apt-get install libopencv-dev -y
+sudo apt-get install build-essential cmake -y
+sudo apt-get install zlib1g-dev libwebp-dev libpng-dev libjasper-dev libtiff5-dev libopenexr-dev libgdal-dev libjpeg-dev -y
+sudo apt-get install qt5-default libvtk6-dev -y
+sudo apt-get install libavcodec-dev libavformat-dev libdc1394-22-dev libswscale-dev libtheora-dev libxvidcore-dev libx264-dev libvorbis-dev yasm libopencore-amrnb-dev libopencore-amrwb-dev libv4l-dev libxine2-dev libtbb-dev -y
 
 echo -e "\n Adafruit BBIO installation \n"
 sudo pip install --upgrade pip
 sudo pip install Adafruit_BBIO
 
+
+echo -e "\n Other Libraries install"
 sudo pip install pyserial
 sudo pip install numpy
 sudo pip install scipy
