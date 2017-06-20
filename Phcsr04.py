@@ -22,22 +22,24 @@ class ultrasonic(threading.Thread):
         self.elapsed=0
         self.distance=0
         self.active=False
+        self.trigtime=10/1000000.0
+        GPIO.output(self.trig, GPIO.LOW)
     def getDistance(self):
         GPIO.output(self.trig, GPIO.LOW)
-        time.sleep(0.1)
+        time.sleep(self.trigtime)
         GPIO.output(self.trig, GPIO.HIGH)
-        time.sleep(10/1000000.0)
+        time.sleep(self.trigtime)
         GPIO.output(self.trig, GPIO.LOW)
         start=time.time()
         stop=0
         loop=time.time()
         while (GPIO.input(self.echo)!=True):
                 start=time.time()
-                if start-loop>1:
+                if start-loop>0.001:
                         break
         while(GPIO.input(self.echo)==True):
                 stop=time.time()
-                if stop-start>1:
+                if stop-start>0.001:
                         break
         self.elapsed=stop-start
         self.distance=(self.elapsed*self.speedSound)/2.0
